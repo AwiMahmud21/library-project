@@ -135,7 +135,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                        @if(can('dashboard'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('home') }}" class="nav-link {{ request()->is('home') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -144,9 +144,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                       
 
-                        @if (can('catalog.index'))
+                       
                             <li class="nav-item">
                                 <a href="{{ url('catalogs') }}" class="nav-link {{ request()->is('catalogs') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-book-open"></i>
@@ -155,9 +155,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                        
 
-                        @if (can('member.index'))
+                       
                             <li class="nav-item">
                                 <a href="{{ url('members') }}" class="nav-link {{ request()->is('members') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-user"></i>
@@ -166,9 +166,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                        
 
-                        @if (can('book.index'))
+                       
                             <li class="nav-item">
                                 <a href="{{ url('books') }}" class="nav-link {{ request()->is('book') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-book"></i>
@@ -177,9 +177,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                        
 
-                        @if (can('publisher.index'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('publishers') }}" class="nav-link {{ request()->is('publishers') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -188,9 +188,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                      
 
-                        @if (can('author.index'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('authors') }}" class="nav-link {{ request()->is('authors') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-book-reader"></i>
@@ -199,9 +199,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                      
 
-                        @if (can('transaction.index'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('transactions') }}" class="nav-link {{ request()->is('transactions') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-hand-holding-usd"></i>
@@ -210,9 +210,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                      
 
-                        @if (can('transaction_detail.index'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('transaction_details') }}" class="nav-link {{ request()->is('transaction_details') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-cart-arrow-down"></i>
@@ -221,9 +221,9 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                        
 
-                        @if (can('category.index'))
+                        
                             <li class="nav-item">
                                 <a href="{{ url('categories') }}" class="nav-link {{ request()->is('categories') ? 'active' : "" }}">
                                     <i class="nav-icon fas fa-cart-arrow-down"></i>
@@ -232,7 +232,7 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
+                     
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

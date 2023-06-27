@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-md-2">
-                <button @click="addData()" class="btn btn-primary" v-if="hasAnyPermission(['admin.book.create'])">Create New Book</button>
+                <button @click="addData()" class="btn btn-primary">Create New Book</button>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
     <div class="modal fade" id="modal-default">
                 <div class="modal-dialog">
                   <div class="modal-content">
-                    <form method="post" :action="actionUrl" autocomplete="off">
+                    <form method="post" :action="actionUrl" @submitForm($even, Book.id)  autocomplete="off">
                       <div class="modal-header">
                         <h4 class="modal-title">Book</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,16 +110,16 @@
 
 @section('js')
 <script type="text/javascript">
-    var actionUrl = '{{ url('book') }}';
-    var apiUrl = '{{ url('api/book') }}';
-    var app = new Vue({
+    var actionUrl = '{{ url('books') }}';
+    var apiUrl = '{{ url('api/books') }}';
+    var controller = new Vue({
         el: '#controller',
         data:{
             books: [],
             search: '',
             book:{},
-            actionUrl,
-            apiUrl,
+          /*  actionUrl,
+            apiUrl, */
             editStatus: false,
         },
         mounted: function (){
@@ -128,7 +128,8 @@
         methods: {
             get_books() {
                 const _this = this;
-                $.ajax({
+                axios.get('api/books').then(function (response) { _this.books = response.data.data })
+             /*   $.ajax({
                     url: apiUrl,
                     method: 'GET',
                     success: function (data){
@@ -137,19 +138,21 @@
                     error: function (error){
                         console.log(error);
                     }
-                });
+                }); */
             },
             addData(){
                 this.book = {};
                 this.editStatus = false;
                 $('#modal-default').modal();
             },
+
             editData(book){
                 this.book = book;
                 this.editStatus = true;
                 this.actionUrl = this.actionUrl+"/"+book.id;
                 $('#modal-default').modal();
             },
+
             deleteData(id){
             // this.actionUrl = '{{ url('book') }}'+'/'+id;
             if (confirm("Are you sure?")) {
@@ -157,6 +160,16 @@
                 alert('Data has been removed');
                 location.reload();
               });
+
+            submitForm(event, id){
+              const _this = this
+              event.preventDefault();
+              var url = !this.editStatus ? actionUrl : actionUrl + '/' + id
+              axios.post(url, new FromData($event.target)[0]).then(response => {
+                $('#modal-default').modal('hide')
+                this.get_books()
+              })
+            }
           //   $(event.target).book.remove();
           //   axios.post(this.actionUrl+'/'+id, {_method: 'DELETE'}).then(response =>{
           //   alert('Data has been removed');

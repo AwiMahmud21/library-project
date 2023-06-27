@@ -30,20 +30,29 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
+Route::prefix('')->group(function() {
+    
+    Route::group(['middleware'=> 'auth'], function() {
+        Route::get('home', [AdminController::class, 'dashboard']);
+        Route::resource('catalogs', AdminController::class);
+         //route books
+        Route::resource('/books', BookController::class);
+        Route::get('/api/books', [BookController::class, 'api']);
+    });
+});
 //prefix "admin"
 Route::prefix('admin')->group(function () { 
     
    //middleware auth
    Route::group(['middleware'=> ['auth']], function(){
         //route catalogs
-        Route::resource('/catalogs', CatalogController::class)
-            ->middleware('permission:catalog.index|catalog.create|catalog.edit|catalog.delete');
+        // Route::resource('/catalogs', CatalogController::class)
+        //     ->middleware('permission:catalog.index|catalog.create|catalog.edit|catalog.delete');
 
         //route books
-        Route::resource('/books', BookController::class)
-            ->middleware('permission:book.index|book.create');
-        Route::get('/api/books', [BookController::class, 'api']);
+        // Route::resource('/books', BookController::class)
+        //     ->middleware('permission:book.index|book.create');
+        // Route::get('/api/books', [BookController::class, 'api']);
 
         //route members
         Route::resource('/members', MemberController::class)
@@ -69,8 +78,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('/categories', CategoryController::class)->middleware('permssion:category.index');
 
         //route home
-        Route::get('/home', [AdminController::class, 'dashboard'])
-            ->middleware('permission:dashboard');
+        // Route::get('/home', [AdminController::class, 'dashboard'])
+        //     ->middleware('permission:dashboard');
             
         //route test spatie for assgin role and permission to database
         Route::get('/test_spatie', [AdminController::class, 'test_spatie']);
